@@ -24,6 +24,11 @@ class DataCleaner(object):
 
     def calculate_dt(self,
                      df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Calculates the consecutive duration in seconds.
+        :param df: Input DataFrame
+        :return: DataFrame with added 'dt' column.
+        """
         df[self.dt_col] = df[self.ts_col].diff()
         df[self.dt_col] = df[self.dt_col].fillna(value=0.0)
         df[self.dt_col] = df[self.dt_col] / self.one_second
@@ -31,6 +36,11 @@ class DataCleaner(object):
 
     def calculate_dx(self,
                      df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Calculates the consecutive distance in meters.
+        :param df: Input DataFrame
+        :return: DataFrame with added 'dx' column.
+        """
         lat0 = df[self.lat_col][:-1].to_numpy()
         lon0 = df[self.lon_col][:-1].to_numpy()
         lat1 = df[self.lat_col][1:].to_numpy()
@@ -41,6 +51,11 @@ class DataCleaner(object):
 
     def calculate_speed(self,
                         df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Calculates the consecutive average speeds in km/h.
+        :param df: Input DataFrame
+        :return: DataFrame with added 'v' column.
+        """
         dx = df[self.dx_col].to_numpy()
         dt = df[self.dt_col].to_numpy()
         v = np.zeros_like(dx)
@@ -49,18 +64,33 @@ class DataCleaner(object):
         df[self.speed_col] = v
         return df
 
-    def calculate_anomalies(self,
-                            df: pd.DataFrame,
-                            max_speed: float):
+    def get_anomalies(self,
+                      df: pd.DataFrame,
+                      max_speed: float) -> pd.DataFrame:
+        return df[df[self.speed_col] > max_speed]
+
+    def calculate_derived_columns(self,
+                                  df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Calculates all the derived columns: 'dt', 'dx' and 'v'.
+        :param df: Input DataFrame
+        :return: DataFrame with added columns.
+        """
         df = self.calculate_dt(df)
         df = self.calculate_dx(df)
         df = self.calculate_speed(df)
-        anom = df[df[self.speed_col] > max_speed]
-        return df, anom
+        return df
 
-    def remove_anomaly(self,
-                       df: pd.DataFrame,
-                       anom: pd.DataFrame) -> pd.DataFrame:
+    def calculate_anomalies(self,
+                            df: pd.DataFrame,
+                            max_speed: float):
+        df = self.calculate_derived_columns(df)
+        anomalies = self.get_anomalies(df, max_speed)
+        return df, anomalies
+
+    def fix_anomaly(self,
+                    df: pd.DataFrame,
+                    anom: pd.DataFrame) -> pd.DataFrame:
         i1 = df.index.get_loc(anom.index[0])
         i0 = i1 - 1
         i2 = i1 + 1
