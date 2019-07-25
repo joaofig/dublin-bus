@@ -1,7 +1,52 @@
 import numpy as np
 import pandas as pd
 
+from typing import List
+
 from geo.geomath import num_haversine, vec_haversine
+
+
+# Both methods below were taken from
+# https://medium.com/unit8-machine-learning-publication/
+# from-pandas-wan-to-pandas-master-4860cf0ce442
+
+def mem_usage(df: pd.DataFrame) -> str:
+    """
+    This method styles the memory usage of a DataFrame to be readable as MB.
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Data frame to measure.
+    Returns
+    -------
+    str
+        Complete memory usage as a string formatted for MB.
+    """
+    return f'{df.memory_usage(deep=True).sum() / 1024 ** 2 : 3.2f} MB'
+
+
+def categorize_columns(df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
+    return df.copy(deep=True).astype({col: 'category' for col in columns})
+
+
+def convert_df(df: pd.DataFrame, deep_copy: bool = True) -> pd.DataFrame:
+    """
+    Automatically converts columns that are worth stored as
+    ``categorical`` dtype.
+    Parameters
+    ----------
+    df: pd.DataFrame
+        Data frame to convert.
+    deep_copy: bool
+        Whether or not to perform a deep copy of the original data frame.
+    Returns
+    -------
+    pd.DataFrame
+        Optimized copy of the input data frame.
+    """
+    return df.copy(deep=deep_copy).astype({
+        col: 'category' for col in df.columns
+        if df[col].nunique() / df[col].shape[0] < 0.5})
 
 
 class DataCleaner(object):

@@ -2,7 +2,12 @@ from tqdm import tqdm
 from concurrent.futures import ProcessPoolExecutor, as_completed
 
 
-def parallel_process(array, function, n_jobs=16, use_kwargs=False, front_num=3):
+def parallel_process(array,
+                     function,
+                     n_jobs=16,
+                     use_kwargs=False,
+                     front_num=3,
+                     tqdm=tqdm):
     """
         This function was copied from here:
         http://danshiebler.com/2016-09-14-parallel-progress-bar/
