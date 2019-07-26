@@ -29,6 +29,8 @@ def categorize_columns(df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
     return df.copy(deep=True).astype({col: 'category' for col in columns})
 
 
+# This function is here only for reference. When used with the Dublin Bus
+# dataset it managed to convert all columns to the category type...
 def convert_df(df: pd.DataFrame, deep_copy: bool = True) -> pd.DataFrame:
     """
     Automatically converts columns that are worth stored as
