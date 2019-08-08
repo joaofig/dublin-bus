@@ -21,11 +21,11 @@ def vec_haversine(lat1: np.ndarray,
     rad_lat2 = np.radians(lat2)
     rad_lon2 = np.radians(lon2)
 
-    dlon = rad_lon2 - rad_lon1
-    dlat = rad_lat2 - rad_lat1
+    d_lon = rad_lon2 - rad_lon1
+    d_lat = rad_lat2 - rad_lat1
 
-    a = np.sin(dlat/2.0)**2 + np.cos(rad_lat1) * np.cos(rad_lat2) \
-        * np.sin(dlon/2.0)**2
+    a = np.sin(d_lat/2.0)**2 + np.cos(rad_lat1) * np.cos(rad_lat2) \
+        * np.sin(d_lon/2.0)**2
 
     c = 2 * np.arctan2(np.sqrt(a), np.sqrt(1.0 - a))
     meters = earth_radius * c
@@ -51,11 +51,11 @@ def num_haversine(lat1: float,
     rad_lat2 = math.radians(lat2)
     rad_lon2 = math.radians(lon2)
 
-    dlon = rad_lon2 - rad_lon1
-    dlat = rad_lat2 - rad_lat1
+    d_lon = rad_lon2 - rad_lon1
+    d_lat = rad_lat2 - rad_lat1
 
-    a = math.sin(dlat/2.0)**2 + math.cos(rad_lat1) * math.cos(rad_lat2) \
-        * math.sin(dlon/2.0)**2
+    a = math.sin(d_lat/2.0)**2 + math.cos(rad_lat1) * math.cos(rad_lat2) \
+        * math.sin(d_lon/2.0)**2
 
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1.0 - a))
     meters = earth_radius * c
