@@ -85,7 +85,7 @@ prometheus-client==0.7.1
 prompt-toolkit==3.0.5
 protobuf==3.11.3
 ptyprocess==0.6.0
-py==1.8.1
+py==1.10.0
 py-spy==0.3.3
 pyarrow==0.16.0
 pydeck==0.2.1
