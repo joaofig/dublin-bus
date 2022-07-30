@@ -59,7 +59,7 @@ leuvenmapmatching==0.5.3
 lxml==4.6.5
 MarkupSafe==1.1.1
 matplotlib==3.2.1
-mistune==0.8.4
+mistune==2.0.3
 modin==0.7.2
 more-itertools==8.2.0
 multidict==4.7.5
