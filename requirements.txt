@@ -87,7 +87,7 @@ protobuf==3.18.3
 ptyprocess==0.6.0
 py==1.10.0
 py-spy==0.3.3
-pyarrow==0.16.0
+pyarrow==14.0.1
 pydeck==0.2.1
 Pygments==2.15.0
 pykalman==0.9.5
