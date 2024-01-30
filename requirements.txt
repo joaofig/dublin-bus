@@ -1,4 +1,4 @@
-aiohttp==3.8.6
+aiohttp==3.9.2
 altair==4.1.0
 appnope==0.1.0
 argh==0.26.2
