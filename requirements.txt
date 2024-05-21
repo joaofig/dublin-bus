@@ -104,7 +104,7 @@ PyYAML==5.4
 pyzmq==19.0.0
 ray==0.8.3
 redis==4.5.3
-requests==2.31.0
+requests==2.32.0
 Rtree==0.9.4
 s3transfer==0.3.3
 scikit-learn==0.22.2.post1
