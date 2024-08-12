@@ -114,7 +114,7 @@ Shapely==1.7.0
 six==1.14.0
 sklearn==0.0
 soupsieve==2.0
-streamlit==0.57.2
+streamlit==1.37.0
 terminado==0.8.3
 testpath==0.4.4
 toml==0.10.0
